@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
+import contact from "./Contact"
 
 const Navbar = () => {
   return (
     <motion.div 
-      className="w-full border-b bg-white sticky top-0 z-50"
+      className="w-full border-b bg-gray-900 text-white sticky top-0 z-50"
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -13,25 +14,25 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 flex justify-between items-center py-4">
         {/* Logo - Clicking navigates to Features */}
         <Link to="/#features" className="text-2xl font-bold hover:scale-105 transition-transform duration-200">
-          <span className="text-black">Go</span>
-          <span className="text-orange-500">Send+</span>
+          <span className="text-teal-400">TRAIFFIC</span> {/* Updated to teal */}
         </Link>
 
         {/* Links */}
-        <div className="hidden md:flex space-x-20">
-          <Link to="/#features" className="text-sm font-medium text-gray-700 hover:text-black transition transform hover:scale-105">Features</Link>
-          <Link to="/accounts" className="text-sm font-medium text-gray-700 hover:text-black transition transform hover:scale-105">Accounts</Link>
-          <Link to="/company" className="text-sm font-medium text-gray-700 hover:text-black transition transform hover:scale-105">Company</Link>
-          <Link to="/insight" className="text-sm font-medium text-gray-700 hover:text-black transition transform hover:scale-105">Insight</Link>
+        <div className="hidden md:flex space-x-40">
+          <Link to="/#features" className="text-sm font-medium text-gray-300 hover:text-teal-400 transition transform hover:scale-105">Features</Link>
+          <Link to="/accounts" className="text-sm font-medium text-gray-300 hover:text-teal-400 transition transform hover:scale-105">AboutUs</Link>
+          <Link to="/contact" className="text-sm font-medium text-gray-300 hover:text-teal-400 transition transform hover:scale-105">Contact Us</Link>
         </div>
 
         {/* Right Side */}
-        <div className="flex items-center space-x-4">
-          <Link to="/login" className="text-sm font-medium text-gray-700 hover:text-black transition transform hover:scale-105">Login</Link>
+        <div className="hidden md:flex space-x-30">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Link to="/signup" className="text-sm font-medium text-gray-700 hover:text-black transition transform hover:scale-105 px-4 py-2 border border-gray-700 rounded-full">Become A Member Here!</Link>
+          <Link to="/signup" className="text-sm font-medium text-gray-300 hover:text-teal-400 transition transform hover:scale-105 px-4 py-2 border border-gray-600 rounded-full">
+              Login
+            </Link>
           </motion.div>
         </div>
+        
       </div>
     </motion.div>
   );
