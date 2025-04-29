@@ -19,7 +19,7 @@ const Sidebar = () => {
           <li><a href="/admin-dashboard" className="hover:text-teal-400">Dashboard</a></li>
           <li><a href="/users" className="hover:text-teal-400">Users</a></li>
           <li><a href="/reports" className="hover:text-teal-400">Reports</a></li>
-          <li><a href="/settings" className="hover:text-teal-400">Settings</a></li>
+          <li><a href="/settings" className="hover:text-teal-400">Car Detector - Live Preview</a></li>
         </ul>
       </SheetContent>
     </Sheet>

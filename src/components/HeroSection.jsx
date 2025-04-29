@@ -53,19 +53,19 @@ const HeroSection = () => {
 
         {/* Right Side - Image with Animation */}
         <motion.div
-          className="grid grid-cols-2 gap-4 w-full"
-          initial={{ opacity: 0, x: 50 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-        >
-          <motion.img
-            src={trafficImage}
-            alt="Smart Traffic System"
-            className="w-full rounded-lg shadow-xl"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          />
-        </motion.div>
+  className="grid grid-cols-1 w-full" // Changed to 1 column to give full width
+  initial={{ opacity: 0, x: 50 }}
+  animate={inView ? { opacity: 1, x: 0 } : {}}
+  transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+>
+  <motion.img
+    src={trafficImage}
+    alt="Smart Traffic System"
+    className="w-full h-auto rounded-lg shadow-2xl" // w-full and added larger shadow
+    whileHover={{ scale: 1.1 }} // Slightly increased scale
+    transition={{ duration: 0.3 }}
+  />
+</motion.div>
       </div>
     </section>
   );
