@@ -4,7 +4,7 @@ import React from "react";
 const SignalStatusCard = () => {
   const currentPhase = "Main Road: Green | Side Road: Red";
   const timeRemaining = 18; // seconds
-  const mode = "Fixed"; // or "Fixed"
+  const mode = "Fix"; // or "Fixed"
 
   return (
     <div className="bg-gray-800 p-4 rounded-xl shadow-lg">

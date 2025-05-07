@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import TrafficChart from "@/components/TrafficChart";
 import SignalStatusCard from "@/components/SignalStatusCard";
@@ -7,16 +5,6 @@ import PerformanceMetrics from "@/components/PerformanceMetrics";
 import ReportsOverview from "@/components/ReportsOverview";
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
-  const adminEmail = "admin@example.com";
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-
-  useEffect(() => {
-    if (!storedUser || storedUser.email !== adminEmail) {
-      navigate("/admin");
-    }
-  }, []);
-
   return (
     <div className="p-4 flex items-start gap-6 bg-gray-900 min-h-screen text-white">
       <Sidebar />

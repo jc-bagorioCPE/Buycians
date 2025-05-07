@@ -27,7 +27,7 @@ const Navbar = () => {
         {/* Right Side */}
         <div className="hidden md:flex space-x-30">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Link to="/signup" className="text-sm font-medium text-gray-300 hover:text-teal-400 transition transform hover:scale-105 px-4 py-2 border border-gray-600 rounded-full">
+          <Link to="/login" className="text-sm font-medium text-gray-300 hover:text-teal-400 transition transform hover:scale-105 px-4 py-2 border border-gray-600 rounded-full">
               Login
             </Link>
           </motion.div>

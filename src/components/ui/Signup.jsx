@@ -12,22 +12,17 @@ const SignIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Hardcoded admin credentials
     const adminEmail = "admin@example.com";
     const adminPassword = "admin123";
 
     if (email === adminEmail && password === adminPassword) {
       setLoginStatus("✅ Welcome, Admin!");
       try {
-        if (typeof window !== "undefined") {
-          // Make sure localStorage is available
-          localStorage.setItem("user", JSON.stringify({ email }));
-        }
+        localStorage.setItem("user", JSON.stringify({ email }));
       } catch (error) {
         console.error("Error accessing localStorage", error);
       }
 
-      // Navigate to dashboard after delay
       setTimeout(() => {
         navigate("/admin-dashboard");
       }, 1000);
@@ -44,9 +39,18 @@ const SignIn = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="w-full max-w-md bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-8"
       >
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="text-sm text-teal-400 hover:underline mb-4"
+        >
+          ← Back
+        </button>
+
         <h2 className="text-center text-3xl font-bold text-white mb-6">
           Admin Sign In
         </h2>
+
         <form className="space-y-5" onSubmit={handleSubmit}>
           <div>
             <label className="block mb-1 text-sm text-gray-300" htmlFor="email">
@@ -83,6 +87,7 @@ const SignIn = () => {
             Sign In
           </button>
         </form>
+
         {loginStatus && (
           <p
             className={`mt-4 text-center ${
