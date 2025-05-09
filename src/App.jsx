@@ -16,6 +16,14 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   const isLoggedIn = localStorage.getItem("user");
 
+  const PublicLayout = ({ children }) => (
+    <>
+      <Navbar />
+      {children}
+    </>
+  );
+
+
   return (
     <Router>
       <div className="font-sans bg-gray-900 text-white">
@@ -24,24 +32,22 @@ function App() {
           @DYCI STUDENT
         </div>
 
+
+
         <Routes>
           {/* Main Page with redirect if logged in */}
-          <Route
-            path="/"
-            element={
-              isLoggedIn ? (
-                <Navigate to="/admin-dashboard" replace />
-              ) : (
-                <>
-                  <Navbar />
-                  <HeroSection />
-                  <AboutUs />
-                  <ValuesSection />
-                  <FAQSection />
-                </>
-              )
-            }
-          />
+          <Route path="/" element={
+            isLoggedIn ? (
+              <Navigate to="/admin-dashboard" replace />
+            ) : (
+              <PublicLayout>
+                <HeroSection />
+                <AboutUs />
+                <ValuesSection />
+                <FAQSection />
+              </PublicLayout>
+            )
+          } />
 
           {/* Login and Signup Pages */}
           <Route path="/contact" element={
@@ -50,7 +56,7 @@ function App() {
               <ContactUs />
             </>
           } />
-          <Route path="/accounts" element={ 
+          <Route path="/accounts" element={
             <>
               <Navbar />
               <AboutUs_2 />
