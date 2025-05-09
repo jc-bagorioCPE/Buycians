@@ -129,27 +129,6 @@ const ContactUs = () => {
             </form>
           </motion.div>
         </div>
-
-        <div className="mt-12 flex justify-center">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-            className="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-600"
-          >
-            <h4 className="font-bold text-lg text-gray-200">Find Us On</h4>
-            <div className="flex space-x-6 mt-4">
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-teal-500 hover:text-teal-400">
-                Twitter
-              </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-teal-500 hover:text-teal-400">
-                Facebook
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-teal-500 hover:text-teal-400">
-                LinkedIn
-              </a>
-            </div>
-          </motion.div>
-        </div>
       </motion.div>
     </section>
   );

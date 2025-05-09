@@ -11,26 +11,21 @@ const AdminDashboard = () => {
       <div className="flex-1">
         <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
 
-        {/* Section 2: Traffic Signal Status */}
-        <div className="flex justify-center mb-6">
-  <div className="w-full max-w-4xl">
-    <SignalStatusCard />
-  </div>
-</div>
-
-        {/* Section 3: System Performance Analytics */}
-        <div className="flex justify-center mb-6">
-  <div className="w-full max-w-4xl">
-  <PerformanceMetrics />
-  </div>
-</div>
-        {/* Section 5: Reports and Charts */}
-        <div className="bg-gray-800 p-4 rounded-xl shadow-lg">
-          <h2 className="text-xl font-semibold mb-4">Traffic Trends & Reports</h2>
-          <TrafficChart />
-          <ReportsOverview />
-        </div>
+      {/* The iframe styled to fill its parent (which is now 100% of viewport) */}
+      <iframe
+        src="http://192.168.100.154:5001/dashboard"
+        title="Live Report" // Always good practice to add a title
+        style={{ width: '100%', height: '90vh', border: 'none' }} // Make iframe fill its container and remove default border
+        // Optional: Add sandbox attribute for security if embedding external content you don't control fully
+        // sandbox="allow-scripts allow-same-origin"
+      >
+        {/* Fallback content if iframe is not supported */}
+        <p>Your browser does not support iframes.</p>
+        <p>Please visit <a href="http://192.168.100.154:5001/dashboard" target="_blank" rel="noopener noreferrer">http://192.168.100.154:5001/</a> directly.</p>
+      </iframe>
+      
       </div>
+      
     </div>
   );
 };

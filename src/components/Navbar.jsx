@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
 import { motion } from "framer-motion";
-import contact from "./Contact"
+
 
 const Navbar = () => {
   return (

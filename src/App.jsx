@@ -21,7 +21,7 @@ function App() {
       <div className="font-sans bg-gray-900 text-white">
         {/* Top Header */}
         <div className="w-full bg-teal-500 text-center text-white py-2 text-sm">
-          @Top Header
+          @DYCI STUDENT
         </div>
 
         <Routes>

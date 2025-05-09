@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react"; // Import useState for managing state
-import trafficImage from '../assets/handshake.jpg'; // Replace with your actual image
-import ContactUs from "./Contact";
+import handshake from "../assets/handshake3.png"
+import safe from "../assets/safe.png"
 
 const FAQSection = () => {
     const { ref, inView } = useInView({ threshold: 0.2 });
@@ -24,7 +24,7 @@ const FAQSection = () => {
     return (
         <div className="bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white">
             {/* Top Banner Section */}
-            <motion.section 
+            <motion.section
                 initial={{ opacity: 0, y: 50 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8 }}
@@ -34,7 +34,7 @@ const FAQSection = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2">
                     <div className="bg-gradient-to-r from-teal-500 to-teal-400 text-white p-10 flex flex-col justify-between mt-10   ">
                         <div>
-                            <h1 className="text-4xl font-bold leading-tight">Enhancing Campus<br />Traffic Efficiency</h1>
+                            <h1 className="text-4xl font-bold leading-tight">Enhancing<br />Traffic Efficiency</h1>
                         </div>
                         <div className="flex mt-8">
                             <div className="mr-12">
@@ -48,13 +48,13 @@ const FAQSection = () => {
                         </div>
                     </div>
                     <div className="relative">
-                        <img src={trafficImage} alt="Traffic AI System" className="w-full h-full object-cover mt-10" />
+                        <img src={safe} alt="Traffic AI System" className="w-full h-full object-cover mt-10" />
                     </div>
                 </div>
             </motion.section>
 
             {/* FAQ Section */}
-            <motion.section 
+            <motion.section
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
@@ -66,24 +66,23 @@ const FAQSection = () => {
                 <div className="mt-8 space-y-6">
                     {faqs.map((faq, index) => (
                         <div key={index} className="space-y-4">
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                                 viewport={{ once: true }}
-                                className="flex justify-between items-center border-b border-gray-600 py-4"
+                                className="flex justify-between items-center border-b border-gray-600 py-4 cursor-pointer"
+                                onClick={() => toggleAnswer(index)} // ✅ Now the whole row is clickable
                             >
                                 <p className="text-lg font-medium text-gray-300">{faq.question}</p>
-                                <motion.button 
+                                <motion.span
                                     whileHover={{ scale: 1.1 }}
                                     transition={{ duration: 0.2 }}
-                                    onClick={() => toggleAnswer(index)} // Toggle answer visibility
                                     className="text-2xl font-bold text-teal-500"
                                 >
-                                    {openIndex === index ? '-' : '+'} {/* Change icon based on open state */}
-                                </motion.button>
+                                    {openIndex === index ? '-' : '+'}
+                                </motion.span>
                             </motion.div>
-                            {/* Conditionally render the answer */}
                             {openIndex === index && (
                                 <div className="pl-8 text-gray-400">
                                     <p>{faq.answer}</p>
@@ -91,11 +90,12 @@ const FAQSection = () => {
                             )}
                         </div>
                     ))}
+
                 </div>
             </motion.section>
 
             {/* Call-to-Action Section */}
-            <motion.section 
+            <motion.section
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
@@ -105,10 +105,10 @@ const FAQSection = () => {
                 <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center px-4">
                     <div className="md:w-1/2 text-center md:text-left mb-6 md:mb-0">
                         <h2 className="text-3xl font-bold leading-snug">
-                            Smarter Roads for <span className="text-yellow-300">Safer Campuses</span>
+                            Smarter Roads for <span className="text-yellow-300">Safer Highways</span>
                         </h2>
-                        <p className="mt-4 text-lg">See how AI and IoT are revolutionizing traffic flow at Dr. Yanga’s Colleges Inc.</p>
-                        <motion.button 
+                        <p className="mt-4 text-lg">See how AI and IoT are revolutionizing traffic flow.</p>
+                        <motion.button
                             whileHover={{ scale: 1.1 }}
                             transition={{ duration: 0.2 }}
                             className="mt-6 bg-gray-800 text-white py-2 px-6 rounded-full"
@@ -117,13 +117,13 @@ const FAQSection = () => {
                         </motion.button>
                     </div>
                     <div className="md:w-1/2 flex justify-center">
-                        <img src={trafficImage} alt="Smart traffic system" className="w-64 h-auto rounded-lg shadow-xl" />
+                        <img src={handshake} alt="Smart traffic system" className="w-64 h-auto rounded-lg shadow-xl" />
                     </div>
                 </div>
             </motion.section>
 
             {/* Footer Section */}
-            <motion.footer 
+            <motion.footer
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
@@ -131,7 +131,7 @@ const FAQSection = () => {
                 className="bg-black py-8 border-t border-gray-600"
             >
                 <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
@@ -143,7 +143,7 @@ const FAQSection = () => {
                             <span className="text-sm">Philippines</span>
                         </div>
                     </motion.div>
-                    <motion.div 
+                    <motion.div
                         className="grid grid-cols-2 gap-6"
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}

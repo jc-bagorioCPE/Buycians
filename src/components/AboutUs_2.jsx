@@ -17,14 +17,14 @@ const teamMembers = [
     name: "Arben Abrao",
     role: "Backend & IoT Systems Specialist",
     description:
-      "Arben specializes in backend logic and integration of real-time IoT data from sensors and AI detection models into the system.",
+      "Arben specializes in backend logic and integration of real-time IoT data from sensors and AI detection models into the system and Hardware Circuits.",
     image: arbenImg,
   },
   {
     name: "Redjie Mhar De Jesus",
     role: "AI/ML Developer",
     description:
-      "Redjie works on building and training AI models for traffic detection, ensuring efficient and accurate recognition using OpenCV and TensorFlow.",
+      "Redjie works on building and training AI models for traffic detection, ensuring efficient and accurate recognition using OpenCV and Roboflow.",
     image: redjieImg,
   },
   {

@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import trafficImage from "../assets/pic1.png"; // Replace with your traffic-related image
 import { TypographyH1, TypographyP } from "./Typography";
-import { Button } from "./ui/button";
+import model from "../assets/model.png"
 
 const HeroSection = () => {
   const { ref, inView } = useInView({ threshold: 0.2 });
@@ -28,7 +27,7 @@ const HeroSection = () => {
             <span className="text-teal-500">AI and IoT</span> {/* Updated to teal */}
           </TypographyH1>
           <TypographyP className="text-gray-300">
-            Experience the future of traffic control with our hybrid AI- and IoT-powered system — designed to improve vehicle flow and pedestrian safety at Dr. Yanga’s Colleges Inc.
+            Experience the future of traffic control with our hybrid AI- and IoT-powered system — designed to improve vehicle flow and pedestrian safety.
           </TypographyP>
           <div className="flex items-center gap-4">
             <motion.div
@@ -59,7 +58,7 @@ const HeroSection = () => {
   transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
 >
   <motion.img
-    src={trafficImage}
+    src={model}
     alt="Smart Traffic System"
     className="w-full h-auto rounded-lg shadow-2xl" // w-full and added larger shadow
     whileHover={{ scale: 1.1 }} // Slightly increased scale

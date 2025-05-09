@@ -16,7 +16,7 @@ const ValuesSection = () => {
       >
         <h2 className="text-lg font-bold text-teal-500 uppercase tracking-wide">System Values</h2>
         <h3 className="text-3xl font-bold mt-2 leading-tight text-gray-200">
-          Smart, Safe, and Scalable<br /> Traffic Innovation for Campuses
+          Smart, Safe, and Scalable<br /> Traffic Innovation
         </h3>
         <p className="mt-2 text-gray-400">
           Our intelligent traffic system is built around real-time responsiveness, pedestrian safety, and sustainable development.
