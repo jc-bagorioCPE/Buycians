@@ -18,8 +18,7 @@ const Footer = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <h2 className="text-3xl font-bold">
-                        <span className="text-white">DYCI</span>
-                        <span className="text-teal-500"> Eats+</span>
+                        <span className="text-teal-500">BUYcian</span>
                     </h2>
                     <p className="text-sm mt-2 text-gray-400">
                         Your go-to online platform for ordering food from on-campus vendors

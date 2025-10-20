@@ -12,6 +12,17 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { MessageCircle } from "lucide-react";
+import chick from "../assets/chicksilog.png";
+import adobo from "../assets/adobo.png";
+import burg from "../assets/burgmeal.png";
+import coffee from "../assets/coffee.png";
+import fries from "../assets/fries.png";
+import hotdog from "../assets/hotdogsand.png";
+import pancit from "../assets/pancit.png";
+import shake from "../assets/shake.png";
+import siomai from "../assets/siomai.png";
+import spag from "../assets/spaghetti.png";
+import ChatWidget from "@/components/Chatwidget";
 
 const HomeDashboard = () => {
     const [products, setProducts] = useState([
@@ -19,15 +30,61 @@ const HomeDashboard = () => {
             id: 1,
             name: "Chicken Silog",
             price: 85,
-            image:
-                "https://images.unsplash.com/photo-1604908812339-758cf4f75cbe?auto=format&fit=crop&w=600&q=80",
+            image: chick,
         },
         {
             id: 2,
             name: "Burger Meal",
             price: 70,
-            image:
-                "https://images.unsplash.com/photo-1606755962773-0e9299528df8?auto=format&fit=crop&w=600&q=80",
+            image: burg,
+        },
+        {
+            id: 3,
+            name: "Hotdog Sandwich",
+            price: 45,
+            image: hotdog,
+        },
+        {
+            id: 4,
+            name: "Pancit Canton",
+            price: 50,
+            image: pancit,
+        },
+        {
+            id: 5,
+            name: "Siomai Rice",
+            price: 60,
+            image: siomai,
+        },
+        {
+            id: 6,
+            name: "Spaghetti",
+            price: 55,
+            image: spag,
+        },
+        {
+            id: 7,
+            name: "Adobo Rice Meal",
+            price: 85,
+            image: adobo,
+        },
+        {
+            id: 8,
+            name: "Fries with Cheese",
+            price: 40,
+            image: fries,
+        },
+        {
+            id: 9,
+            name: "Iced Coffee",
+            price: 35,
+            image: coffee,
+        },
+        {
+            id: 10,
+            name: "Mango Shake",
+            price: 50,
+            image: shake,
         },
     ]);
 
@@ -170,7 +227,7 @@ const HomeDashboard = () => {
     );
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#f9fafb] text-[#1f2937] relative">
+        <div className="min-h-screen flex flex-col bg-[#edf2f7] text-[#1f2937] relative">
             <Header
                 search={search}
                 setSearch={setSearch}
@@ -323,8 +380,8 @@ const HomeDashboard = () => {
                                                                     <td className="py-3 px-4">
                                                                         <Badge
                                                                             className={`${order.status === "Delivered"
-                                                                                    ? "bg-green-500"
-                                                                                    : "bg-yellow-500"
+                                                                                ? "bg-green-500"
+                                                                                : "bg-yellow-500"
                                                                                 } text-white`}
                                                                         >
                                                                             {order.status}
@@ -360,65 +417,7 @@ const HomeDashboard = () => {
             </main>
 
             <Footer />
-
-            <button
-                onClick={() => setShowChat(!showChat)}
-                className="fixed bottom-6 right-6 bg-[#2563eb] hover:bg-[#1d4ed8] text-white p-4 rounded-full shadow-lg flex items-center justify-center transition transform hover:scale-105"
-            >
-                <MessageCircle size={28} />
-            </button>
-
-            {showChat && (
-                <div className="fixed bottom-24 right-6 w-96 h-[500px] bg-white shadow-2xl rounded-2xl border border-gray-200 flex flex-col">
-                    <div className="bg-[#2563eb] text-white p-4 rounded-t-2xl flex justify-between items-center">
-                        <span className="font-semibold text-lg">Customer Support</span>
-                        <button
-                            onClick={() => setShowChat(false)}
-                            className="text-white hover:text-gray-200 text-xl"
-                        >
-                            ✕
-                        </button>
-                    </div>
-
-                    <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-gray-50">
-                        {messages.length === 0 ? (
-                            <p className="text-gray-500 text-center mt-10">
-                                Start the conversation 👋
-                            </p>
-                        ) : (
-                            messages.map((msg, index) => (
-                                <div
-                                    key={index}
-                                    className={`p-3 rounded-xl max-w-[75%] ${msg.sender === "You"
-                                            ? "bg-[#e0f2fe] self-end ml-auto"
-                                            : "bg-gray-200"
-                                        }`}
-                                >
-                                    <p className="text-sm">
-                                        <strong>{msg.sender}: </strong>
-                                        {msg.text}
-                                    </p>
-                                </div>
-                            ))
-                        )}
-                    </div>
-
-                    <div className="border-t p-3 flex gap-2 bg-white rounded-b-2xl">
-                        <Input
-                            placeholder="Type your message..."
-                            value={chatInput}
-                            onChange={(e) => setChatInput(e.target.value)}
-                            className="flex-1"
-                        />
-                        <Button
-                            onClick={handleSendMessage}
-                            className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white"
-                        >
-                            Send
-                        </Button>
-                    </div>
-                </div>
-            )}
+            <ChatWidget />
         </div>
     );
 };
