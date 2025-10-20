@@ -8,20 +8,18 @@ const SellerOrders = () => {
     const [orders, setOrders] = useState([]);
     const [selectedOrderKey, setSelectedOrderKey] = useState(null);
 
-    // ✅ Load from localStorage but clone data to avoid shared reference between tabs
+    // Load orders from localStorage
     useEffect(() => {
         const loadOrders = () => {
             const stored = JSON.parse(localStorage.getItem("orders")) || [];
             setOrders(JSON.parse(JSON.stringify(stored))); // deep copy
         };
         loadOrders();
-
-        // Keep listener only for future storage updates (if other components modify orders)
         window.addEventListener("storage", loadOrders);
         return () => window.removeEventListener("storage", loadOrders);
     }, []);
 
-    // ✅ Group orders by orderNumber + buyerId
+    // Group orders by orderNumber + buyerId
     const groupedOrders = orders.reduce((acc, order) => {
         const key = `${order.orderNumber}-${order.buyerId}`;
         if (!acc[key]) acc[key] = [];
@@ -32,25 +30,22 @@ const SellerOrders = () => {
     const handleOrderClick = (key) => setSelectedOrderKey(key);
 
     const handleMarkDelivered = (orderNumber, buyerId) => {
-        // Update only this tab’s state
         const updatedOrders = orders.map((order) =>
             order.orderNumber === orderNumber && order.buyerId === buyerId
                 ? { ...order, status: "Delivered" }
                 : order
         );
         setOrders(updatedOrders);
-
-        // Save globally to localStorage, but keep this tab’s state separate
         localStorage.setItem("orders", JSON.stringify(updatedOrders));
     };
 
-    // ✅ Detailed order view
+    // Detailed view
     if (selectedOrderKey) {
-        const [orderNumber, buyerId] = selectedOrderKey.split("-");
         const selectedOrders = groupedOrders[selectedOrderKey];
-        const order = selectedOrders[0];
+        const orderNumber = selectedOrders[0].orderNumber;
+        const buyerId = selectedOrders[0].buyerId;
         const totalPrice = selectedOrders.reduce((sum, o) => sum + o.total, 0);
-        const date = new Date(order.createdAt).toLocaleString();
+        const date = new Date(selectedOrders[0].createdAt).toLocaleString();
 
         return (
             <div className="max-w-5xl mx-auto p-6 bg-gradient-to-b from-gray-800 via-gray-900 to-black min-h-screen text-gray-100">
@@ -88,59 +83,66 @@ const SellerOrders = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {order.items.map((item, i) => (
-                                        <tr
-                                            key={i}
-                                            className="border-b border-gray-700 hover:bg-gray-700/50 transition-colors"
-                                        >
-                                            <td className="py-3 px-4 flex items-center space-x-3">
-                                                {item.image && (
-                                                    <img
-                                                        src={item.image}
-                                                        alt={item.name}
-                                                        className="w-12 h-12 rounded object-cover"
-                                                    />
-                                                )}
-                                                <span className="font-medium text-gray-100">
-                                                    {item.name}
-                                                </span>
-                                            </td>
-                                            <td className="py-3 px-4 font-semibold text-gray-100">
-                                                ₱{item.price.toFixed(2)}
-                                            </td>
-                                            <td className="py-3 px-4">
-                                                <Badge
-                                                    className={`${order.status === "Delivered"
-                                                        ? "bg-green-600"
-                                                        : "bg-yellow-500"
-                                                        } text-white`}
-                                                >
-                                                    {order.status}
-                                                </Badge>
-                                            </td>
-                                            <td className="py-3 px-4">
-                                                <Button
-                                                    onClick={() => handleMarkDelivered(orderNumber, buyerId)}
-                                                    disabled={order.status === "Delivered"}
-                                                    className={`${order.status === "Delivered"
-                                                        ? "bg-gray-500 cursor-not-allowed"
-                                                        : "bg-teal-500 hover:bg-teal-600"
-                                                        } text-white`}
-                                                >
-                                                    {order.status === "Delivered"
-                                                        ? "Delivered"
-                                                        : "Mark as Delivered"}
-                                                </Button>
-                                            </td>
-                                        </tr>
-                                    ))}
+                                    {selectedOrders.map((order, idx) =>
+                                        order.items.map((item, i) => (
+                                            <tr
+                                                key={`${idx}-${i}`}
+                                                className="border-b border-gray-700 hover:bg-gray-700/50 transition-colors"
+                                            >
+                                                <td className="py-3 px-4 flex items-center space-x-3">
+                                                    {item.image && (
+                                                        <img
+                                                            src={item.image}
+                                                            alt={item.name}
+                                                            className="w-12 h-12 rounded object-cover"
+                                                        />
+                                                    )}
+                                                    <span className="font-medium text-gray-100">
+                                                        {item.name}
+                                                    </span>
+                                                </td>
+                                                <td className="py-3 px-4 font-semibold text-gray-100">
+                                                    ₱{item.price.toFixed(2)}
+                                                </td>
+                                                <td className="py-3 px-4">
+                                                    <Badge
+                                                        className={`${order.status === "Delivered"
+                                                                ? "bg-green-600"
+                                                                : "bg-yellow-500"
+                                                            } text-white`}
+                                                    >
+                                                        {order.status}
+                                                    </Badge>
+                                                </td>
+                                                <td className="py-3 px-4">
+                                                    <Button
+                                                        onClick={() =>
+                                                            handleMarkDelivered(order.orderNumber, order.buyerId)
+                                                        }
+                                                        disabled={order.status === "Delivered"}
+                                                        className={`${order.status === "Delivered"
+                                                                ? "bg-gray-500 cursor-not-allowed"
+                                                                : "bg-teal-500 hover:bg-teal-600"
+                                                            } text-white`}
+                                                    >
+                                                        {order.status === "Delivered"
+                                                            ? "Delivered"
+                                                            : "Mark as Delivered"}
+                                                    </Button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    )}
                                 </tbody>
                             </table>
                         </div>
 
                         <Separator className="my-4 bg-gray-700" />
                         <div className="text-right font-semibold text-lg text-gray-100">
-                            Total: <span className="text-teal-400">₱{totalPrice.toFixed(2)}</span>
+                            Total:{" "}
+                            <span className="text-teal-400">
+                                ₱{totalPrice.toFixed(2)}
+                            </span>
                         </div>
                     </CardContent>
                 </Card>
@@ -148,7 +150,7 @@ const SellerOrders = () => {
         );
     }
 
-    // ✅ Summary view
+    // Summary view
     return (
         <div className="max-w-5xl mx-auto p-6 bg-gradient-to-b from-gray-800 via-gray-900 to-black min-h-screen text-gray-100">
             <Card className="bg-gray-800/80 border border-gray-700 shadow-lg hover:shadow-teal-500/20">
@@ -177,13 +179,10 @@ const SellerOrders = () => {
                                 </thead>
                                 <tbody>
                                     {Object.keys(groupedOrders).map((key) => {
-                                        const [orderNumber, buyerId] = key.split("-");
                                         const ordersGroup = groupedOrders[key];
-                                        const total = ordersGroup.reduce((s, o) => s + o.total, 0);
-                                        const status = ordersGroup[0].status || "Pending";
-                                        const date = new Date(
-                                            ordersGroup[0].createdAt
-                                        ).toLocaleString();
+                                        const order = ordersGroup[0];
+                                        const totalPrice = ordersGroup.reduce((s, o) => s + o.total, 0);
+                                        const date = new Date(order.createdAt).toLocaleString();
 
                                         return (
                                             <tr
@@ -192,23 +191,24 @@ const SellerOrders = () => {
                                                 className="border-b border-gray-700 cursor-pointer hover:bg-gray-700/50 transition-colors"
                                             >
                                                 <td className="py-3 px-4 font-semibold text-teal-400">
-                                                    #{orderNumber}
+                                                    Order #{order.orderNumber}
                                                 </td>
                                                 <td className="py-3 px-4 text-gray-400">
-                                                    {ordersGroup[0].items.length} item(s)
+                                                    {ordersGroup.reduce((acc, o) => acc + o.items.length, 0)}{" "}
+                                                    item(s)
                                                 </td>
                                                 <td className="py-3 px-4 font-semibold text-gray-100">
-                                                    ₱{total.toFixed(2)}
+                                                    ₱{totalPrice.toFixed(2)}
                                                 </td>
                                                 <td className="py-3 px-4 text-gray-400">{date}</td>
                                                 <td className="py-3 px-4">
                                                     <Badge
-                                                        className={`${status === "Delivered"
-                                                            ? "bg-green-600"
-                                                            : "bg-yellow-500"
+                                                        className={`${order.status === "Delivered"
+                                                                ? "bg-green-600"
+                                                                : "bg-yellow-500"
                                                             } text-white`}
                                                     >
-                                                        {status}
+                                                        {order.status}
                                                     </Badge>
                                                 </td>
                                             </tr>

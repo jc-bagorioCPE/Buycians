@@ -44,7 +44,6 @@ const ProfilePage = () => {
         const firstOrder = selectedOrders[0];
         const status = firstOrder.status || "Pending";
         const totalPrice = selectedOrders.reduce((sum, o) => sum + o.total, 0);
-        const orderDate = firstOrder.date ? new Date(firstOrder.date).toLocaleString() : "N/A";
 
         return (
             <div className="max-w-5xl mx-auto p-6">
@@ -57,10 +56,6 @@ const ProfilePage = () => {
                                 </CardTitle>
                                 <p className="text-sm text-gray-400">
                                     Buyer ID: <span className="font-semibold text-gray-200">{buyerId}</span>
-                                </p>
-                                <p className="text-sm text-gray-400">
-                                    Date Ordered:{" "}
-                                    <span className="font-semibold text-gray-200">{orderDate}</span>
                                 </p>
                             </div>
                             <button
@@ -167,7 +162,6 @@ const ProfilePage = () => {
                                 <thead>
                                     <tr className="bg-gray-800 text-teal-400 border-b border-gray-700">
                                         <th className="text-left py-2 px-4">Order Number</th>
-                                        <th className="text-left py-2 px-4">Date Ordered</th>
                                         <th className="text-left py-2 px-4">Total Items</th>
                                         <th className="text-left py-2 px-4">Total Price</th>
                                         <th className="text-left py-2 px-4">Status</th>
@@ -180,9 +174,6 @@ const ProfilePage = () => {
                                         const total = ordersGroup.reduce((sum, o) => sum + o.total, 0);
                                         const status = ordersGroup[0].status || "Pending";
                                         const totalItems = ordersGroup[0].items.length;
-                                        const orderDate = ordersGroup[0].date
-                                            ? new Date(ordersGroup[0].date).toLocaleString()
-                                            : "N/A";
 
                                         return (
                                             <tr
@@ -193,7 +184,6 @@ const ProfilePage = () => {
                                                 <td className="py-3 px-4 font-semibold text-teal-400">
                                                     {orderNumber}
                                                 </td>
-                                                <td className="py-3 px-4 text-gray-400">{orderDate}</td>
                                                 <td className="py-3 px-4 text-gray-300">{totalItems}</td>
                                                 <td className="py-3 px-4 font-semibold text-gray-200">
                                                     ₱{total.toFixed(2)}

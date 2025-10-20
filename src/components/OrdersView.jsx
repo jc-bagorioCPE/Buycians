@@ -73,8 +73,8 @@ const OrdersView = () => {
                                                 <td className="py-3 px-4">
                                                     <Badge
                                                         className={`${order.status === "Delivered"
-                                                                ? "bg-teal-500"
-                                                                : "bg-yellow-500"
+                                                            ? "bg-teal-500"
+                                                            : "bg-yellow-500"
                                                             } text-white px-3 py-1 rounded-full`}
                                                     >
                                                         {order.status}

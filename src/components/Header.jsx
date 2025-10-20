@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ShoppingCart, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Popover } from "./ui/popover";
+import CartView from "./CartView";
 
 const Header = ({ search, setSearch, cartCount, view, setView }) => {
     const navigate = useNavigate();
@@ -17,10 +19,11 @@ const Header = ({ search, setSearch, cartCount, view, setView }) => {
             <div className="container mx-auto flex flex-wrap justify-between items-center py-4 px-6 gap-4">
                 {/* Logo / Title */}
                 <h1
-                    className="text-2xl font-bold cursor-pointer whitespace-nowrap text-teal-400 hover:text-teal-300 transition-colors"
+                    className="text-4xl font-bold cursor-pointer whitespace-nowrap transition-colors"
                     onClick={() => setView("home")}
                 >
-                    DYCI MarketHub 🛒
+                    <span className="text-teal-400 hover:text-teal-300">BUY</span>
+                    <span className="text-white">cians 🛒</span>
                 </h1>
 
                 {/* Search Bar */}

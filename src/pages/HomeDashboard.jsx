@@ -26,66 +26,16 @@ import ChatWidget from "@/components/Chatwidget";
 
 const HomeDashboard = () => {
     const [products, setProducts] = useState([
-        {
-            id: 1,
-            name: "Chicken Silog",
-            price: 85,
-            image: chick,
-        },
-        {
-            id: 2,
-            name: "Burger Meal",
-            price: 70,
-            image: burg,
-        },
-        {
-            id: 3,
-            name: "Hotdog Sandwich",
-            price: 45,
-            image: hotdog,
-        },
-        {
-            id: 4,
-            name: "Pancit Canton",
-            price: 50,
-            image: pancit,
-        },
-        {
-            id: 5,
-            name: "Siomai Rice",
-            price: 60,
-            image: siomai,
-        },
-        {
-            id: 6,
-            name: "Spaghetti",
-            price: 55,
-            image: spag,
-        },
-        {
-            id: 7,
-            name: "Adobo Rice Meal",
-            price: 85,
-            image: adobo,
-        },
-        {
-            id: 8,
-            name: "Fries with Cheese",
-            price: 40,
-            image: fries,
-        },
-        {
-            id: 9,
-            name: "Iced Coffee",
-            price: 35,
-            image: coffee,
-        },
-        {
-            id: 10,
-            name: "Mango Shake",
-            price: 50,
-            image: shake,
-        },
+        { id: 1, name: "Chicken Silog", price: 85, image: chick },
+        { id: 2, name: "Burger Meal", price: 70, image: burg },
+        { id: 3, name: "Hotdog Sandwich", price: 45, image: hotdog },
+        { id: 4, name: "Pancit Canton", price: 50, image: pancit },
+        { id: 5, name: "Siomai Rice", price: 60, image: siomai },
+        { id: 6, name: "Spaghetti", price: 55, image: spag },
+        { id: 7, name: "Adobo Rice Meal", price: 85, image: adobo },
+        { id: 8, name: "Fries with Cheese", price: 40, image: fries },
+        { id: 9, name: "Iced Coffee", price: 35, image: coffee },
+        { id: 10, name: "Mango Shake", price: 50, image: shake },
     ]);
 
     const [cart, setCart] = useState([]);
@@ -162,7 +112,7 @@ const HomeDashboard = () => {
         window.dispatchEvent(new Event("storage"));
         setCart([]);
         setView("orders");
-        alert(`✅ Order placed — ${orderNumber} ${buyerId} `);
+        alert(`✅ Order placed — ${orderNumber}  ${buyerId} `);
     };
 
     const markOrderDelivered = (orderNumber) => {
@@ -198,6 +148,9 @@ const HomeDashboard = () => {
     const handleImageUpload = (e) => {
         const file = e.target.files && e.target.files[0];
         if (!file) return;
+
+        alert(`Selected file: ${file.name}`); // Alert on file selection
+
         const reader = new FileReader();
         reader.onloadend = () => {
             setProduct((prev) => ({ ...prev, image: reader.result }));
@@ -207,8 +160,10 @@ const HomeDashboard = () => {
 
     const handleAddProduct = (e) => {
         e.preventDefault();
-        if (!product.name || !product.price || !product.image)
-            return alert("Please fill all fields");
+        if (!product.name || !product.price || !product.image) {
+            alert("⚠️ Please fill all fields and upload an image");
+            return;
+        }
 
         const newProduct = {
             id: products.length + 1,
@@ -219,7 +174,7 @@ const HomeDashboard = () => {
 
         setProducts((prev) => [...prev, newProduct]);
         setProduct({ name: "", price: "", image: "" });
-        alert("✅ Product added successfully!");
+        alert("✅ Product added successfully!"); // Alert on success
     };
 
     const filteredProducts = products.filter((p) =>
@@ -227,7 +182,7 @@ const HomeDashboard = () => {
     );
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#edf2f7] text-[#1f2937] relative">
+        <div className="min-h-screen flex flex-col bg-[#1e293b] text-[#f1f5f9] relative">
             <Header
                 search={search}
                 setSearch={setSearch}
@@ -258,70 +213,51 @@ const HomeDashboard = () => {
 
                 {view === "profile" && (
                     <div className="flex justify-center">
-                        <Card className="w-full max-w-3xl bg-white shadow-lg rounded-2xl">
+                        <Card className="w-full max-w-3xl bg-[#334155] text-[#f1f5f9] shadow-lg rounded-2xl">
                             <CardHeader>
-                                <CardTitle className="text-2xl font-bold text-[#2563eb]">
+                                <CardTitle className="text-2xl font-bold text-[#38bdf8]">
                                     {isVerified ? "Seller Dashboard 🛍️" : "My Profile"}
                                 </CardTitle>
                             </CardHeader>
 
                             <CardContent>
                                 <div className="mb-4">
-                                    <h3 className="font-semibold text-gray-700">
-                                        User Information
-                                    </h3>
+                                    <h3 className="font-semibold text-[#cbd5e1]">User Information</h3>
                                     <p>Name: John Doe</p>
                                     <p>Email: johndoe@example.com</p>
                                 </div>
 
-                                <Separator className="my-4" />
+                                <Separator className="my-4 bg-[#475569]" />
 
-                                {!isVerified ? (
-                                    <div className="text-center">
-                                        <p className="text-gray-600 mb-4">
-                                            You are not verified to sell products yet.
-                                        </p>
-                                        <Button
-                                            onClick={() => setView("verify")}
-                                            className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white"
-                                        >
-                                            Verify to Sell
-                                        </Button>
-                                    </div>
-                                ) : (
+                                {isVerified ? (
                                     <>
                                         <div className="mb-6">
-                                            <h3 className="font-semibold text-gray-700 mb-2">
-                                                Add a Product
-                                            </h3>
+                                            <h3 className="font-semibold text-[#cbd5e1] mb-2">Add a Product</h3>
                                             <form
                                                 onSubmit={handleAddProduct}
-                                                className="space-y-3 bg-gray-50 p-4 rounded-lg"
+                                                className="space-y-3 bg-[#475569] p-4 rounded-lg"
                                             >
                                                 <Input
+                                                    className="bg-[#1e293b] text-[#f1f5f9] border-[#475569]"
                                                     placeholder="Product Name"
                                                     value={product.name}
                                                     onChange={(e) =>
-                                                        setProduct((p) => ({
-                                                            ...p,
-                                                            name: e.target.value,
-                                                        }))
+                                                        setProduct((p) => ({ ...p, name: e.target.value }))
                                                     }
                                                 />
                                                 <Input
+                                                    className="bg-[#1e293b] text-[#f1f5f9] border-[#475569]"
                                                     placeholder="Price (₱)"
                                                     type="number"
                                                     value={product.price}
                                                     onChange={(e) =>
-                                                        setProduct((p) => ({
-                                                            ...p,
-                                                            price: e.target.value,
-                                                        }))
+                                                        setProduct((p) => ({ ...p, price: e.target.value }))
                                                     }
                                                 />
                                                 <Input
                                                     type="file"
                                                     accept="image/*"
+                                                    className="bg-[#1e293b] text-[#f1f5f9]"
                                                     onChange={handleImageUpload}
                                                 />
                                                 <Button
@@ -333,18 +269,15 @@ const HomeDashboard = () => {
                                             </form>
                                         </div>
 
-                                        <Separator className="my-4" />
+                                        <Separator className="my-4 bg-[#475569]" />
 
                                         <div>
-                                            <h3 className="font-semibold text-gray-700 mb-3">
-                                                Order Transactions
-                                            </h3>
-
+                                            <h3 className="font-semibold text-[#cbd5e1] mb-3">Order Transactions</h3>
                                             {orders.length === 0 ? (
-                                                <p className="text-gray-500">No customer orders yet.</p>
+                                                <p className="text-[#cbd5e1]">No customer orders yet.</p>
                                             ) : (
                                                 <div className="overflow-x-auto">
-                                                    <table className="w-full border-collapse">
+                                                    <table className="w-full border-collapse text-[#f1f5f9]">
                                                         <thead>
                                                             <tr className="bg-[#2563eb] text-white">
                                                                 <th className="text-left py-2 px-4">Order #</th>
@@ -358,32 +291,17 @@ const HomeDashboard = () => {
                                                             {orders.map((order) => (
                                                                 <tr
                                                                     key={order.orderNumber}
-                                                                    className="border-b hover:bg-[#e0f2fe] transition-colors cursor-pointer"
+                                                                    className="border-b border-[#475569] hover:bg-[#475569] transition-colors cursor-pointer"
                                                                     onClick={() => {
                                                                         setView("sellerorders");
-                                                                        window.dispatchEvent(
-                                                                            new CustomEvent("open-order", {
-                                                                                detail: order.orderNumber,
-                                                                            })
-                                                                        );
+                                                                        window.dispatchEvent(new CustomEvent("open-order", { detail: order.orderNumber }));
                                                                     }}
                                                                 >
-                                                                    <td className="py-3 px-4 font-semibold text-[#2563eb]">
-                                                                        {order.orderNumber}
-                                                                    </td>
+                                                                    <td className="py-3 px-4 font-semibold text-[#38bdf8]">{order.orderNumber}</td>
+                                                                    <td className="py-3 px-4">{order.items.length} item(s)</td>
+                                                                    <td className="py-3 px-4 font-semibold text-[#f8fafc]">₱{order.total.toFixed(2)}</td>
                                                                     <td className="py-3 px-4">
-                                                                        {order.items.length} item(s)
-                                                                    </td>
-                                                                    <td className="py-3 px-4 font-semibold text-gray-800">
-                                                                        ₱{order.total.toFixed(2)}
-                                                                    </td>
-                                                                    <td className="py-3 px-4">
-                                                                        <Badge
-                                                                            className={`${order.status === "Delivered"
-                                                                                ? "bg-green-500"
-                                                                                : "bg-yellow-500"
-                                                                                } text-white`}
-                                                                        >
+                                                                        <Badge className={`${order.status === "Delivered" ? "bg-green-600" : "bg-yellow-600"} text-white`}>
                                                                             {order.status}
                                                                         </Badge>
                                                                     </td>
@@ -409,6 +327,18 @@ const HomeDashboard = () => {
                                             )}
                                         </div>
                                     </>
+                                ) : (
+                                    <div className="text-center">
+                                        <p className="text-[#cbd5e1] mb-4">
+                                            You are not verified to sell products yet.
+                                        </p>
+                                        <Button
+                                            onClick={() => setView("verify")}
+                                            className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white"
+                                        >
+                                            Verify to Sell
+                                        </Button>
+                                    </div>
                                 )}
                             </CardContent>
                         </Card>

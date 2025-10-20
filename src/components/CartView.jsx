@@ -5,7 +5,6 @@ const CartView = ({ cart, placeOrder }) => {
     const handlePlaceOrder = () => {
         if (cart.length === 0) return;
 
-        // Generate 4-digit buyer ID and order number
         const buyerId = `Guest-${String(Math.floor(Math.random() * 10000)).padStart(4, "0")}`;
         const orderNumber = `ORD-${String(Math.floor(Math.random() * 10000)).padStart(4, "0")}`;
 
@@ -34,11 +33,11 @@ const CartView = ({ cart, placeOrder }) => {
     };
 
     return (
-        <div className="bg-[#f9fafb] p-6 rounded-xl shadow-sm border border-[#e5e7eb]">
-            <h2 className="text-2xl font-semibold mb-4 text-[#1f2937]">🛍 My Cart</h2>
+        <div className="bg-[#334155] p-6 rounded-2xl shadow-md border border-[#475569] text-[#f1f5f9]">
+            <h2 className="text-2xl font-semibold mb-4 text-[#38bdf8]">🛍 My Cart</h2>
 
             {cart.length === 0 ? (
-                <p className="text-gray-500 text-center py-6 bg-white rounded-lg shadow-inner">
+                <p className="text-[#cbd5e1] text-center py-6 bg-[#475569] rounded-lg shadow-inner">
                     Your cart is empty.
                 </p>
             ) : (
@@ -46,16 +45,26 @@ const CartView = ({ cart, placeOrder }) => {
                     {cart.map((item, index) => (
                         <div
                             key={index}
-                            className="flex justify-between items-center border-b border-[#e5e7eb] py-3 px-2 hover:bg-[#f3f4f6] rounded-lg transition-all"
+                            className="flex justify-between items-center border-b border-[#475569] py-3 px-2 hover:bg-[#475569] rounded-lg transition-all"
                         >
-                            <span className="text-[#1f2937] font-medium">{item.name}</span>
-                            <span className="font-semibold text-[#2563eb]">
+                            <span className="text-[#f8fafc] font-medium">{item.name}</span>
+                            <span className="font-semibold text-[#38bdf8]">
                                 ₱{item.price.toFixed(2)}
                             </span>
                         </div>
                     ))}
 
-                    <div className="mt-6">
+                    <div className="mt-6 border-t border-[#475569] pt-4">
+                        <div className="flex justify-between text-[#cbd5e1] mb-4 text-lg">
+                            <span>Total</span>
+                            <span className="font-bold text-[#38bdf8]">
+                                ₱
+                                {cart
+                                    .reduce((sum, item) => sum + item.price, 0)
+                                    .toFixed(2)}
+                            </span>
+                        </div>
+
                         <Button
                             onClick={handlePlaceOrder}
                             className="bg-[#2563eb] hover:bg-[#1d4ed8] w-full text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-lg transition-all"
