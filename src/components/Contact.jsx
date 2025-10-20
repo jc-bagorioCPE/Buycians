@@ -54,18 +54,28 @@ const ContactUs = () => {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white" ref={ref}>
+    <section
+      className="py-20 bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white"
+      ref={ref}
+    >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 0.8 }}
         className="max-w-7xl mx-auto px-4"
       >
-        <h2 className="text-lg font-bold text-teal-500 uppercase tracking-wide">Contact Us</h2>
-        <h3 className="text-3xl font-bold mt-2 leading-tight text-gray-200">Get in Touch With Us</h3>
-        <p className="mt-2 text-gray-400">Have any questions or suggestions? We're here to help you. Reach out to us below.</p>
+        <h2 className="text-lg font-bold text-teal-500 uppercase tracking-wide">
+          Contact Us
+        </h2>
+        <h3 className="text-3xl font-bold mt-2 leading-tight text-gray-200">
+          Get in Touch With Us
+        </h3>
+        <p className="mt-2 text-gray-400">
+          Have any questions or suggestions? We're here to help you. Reach out to us below.
+        </p>
 
-        <div className="mt-10">
+        {/* Increased bottom margin for better gap */}
+        <div className="mt-10 mb-20">
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
@@ -73,7 +83,9 @@ const ContactUs = () => {
           >
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label className="block text-lg text-gray-200" htmlFor="name">Your Name</label>
+                <label className="block text-lg text-gray-200" htmlFor="name">
+                  Your Name
+                </label>
                 <input
                   type="text"
                   id="name"
@@ -86,7 +98,9 @@ const ContactUs = () => {
               </div>
 
               <div>
-                <label className="block text-lg text-gray-200" htmlFor="email">Your Email</label>
+                <label className="block text-lg text-gray-200" htmlFor="email">
+                  Your Email
+                </label>
                 <input
                   type="email"
                   id="email"
@@ -99,7 +113,9 @@ const ContactUs = () => {
               </div>
 
               <div>
-                <label className="block text-lg text-gray-200" htmlFor="message">Your Message</label>
+                <label className="block text-lg text-gray-200" htmlFor="message">
+                  Your Message
+                </label>
                 <textarea
                   id="message"
                   name="message"
@@ -130,6 +146,60 @@ const ContactUs = () => {
           </motion.div>
         </div>
       </motion.div>
+
+      {/* Footer Section */}
+      <motion.footer
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="bg-black py-8 border-t border-gray-600"
+      >
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-3xl font-bold">
+              <span className="text-white">DYCI</span>
+              <span className="text-teal-500"> Eats+</span>
+            </h2>
+            <p className="text-sm mt-2">
+              Dr. Yanga’s Colleges Inc., Brgy. Wakas, Bocaue, Bulacan
+            </p>
+            <div className="flex items-center mt-1">
+              <span className="mr-2">🇵🇭</span>
+              <span className="text-sm">Philippines</span>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="grid grid-cols-2 gap-6"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div>
+              <h3 className="text-md font-bold">System</h3>
+              <ul className="mt-2 space-y-1 text-sm">
+                <li>Vendor Management</li>
+                <li>Online Ordering</li>
+                <li>Cashless Payments</li>
+                <li>Menu Updates</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-md font-bold">Support</h3>
+              <ul className="mt-2 space-y-1 text-sm">
+                <li>Contact Team</li>
+                <li>Documentation</li>
+                <li>Research Paper</li>
+              </ul>
+            </div>
+          </motion.div>
+        </div>
+      </motion.footer>
     </section>
   );
 };
