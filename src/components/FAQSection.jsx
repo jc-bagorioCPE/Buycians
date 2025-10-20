@@ -1,24 +1,44 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
-import { useState } from "react"; // Import useState for managing state
-import handshake from "../assets/handshake3.png"
-import safe from "../assets/safe.png"
+import { useState } from "react";
+import handshake from "../assets/handshake3.png";
+import safe from "../assets/safe.png";
 
 const FAQSection = () => {
     const { ref, inView } = useInView({ threshold: 0.2 });
+    const [openIndex, setOpenIndex] = useState(null);
 
-    const [openIndex, setOpenIndex] = useState(null); // Track which FAQ is open
     const faqs = [
-        { question: "How does the system detect vehicles?", answer: "It uses sensors and cameras to detect vehicles." },
-        { question: "What happens during heavy traffic congestion?", answer: "The system adjusts the traffic light timing to optimize flow." },
-        { question: "Is the system fully automated?", answer: "Yes, it operates autonomously based on real-time traffic data." },
-        { question: "Can pedestrians safely cross using the push button?", answer: "Yes, the system includes a pedestrian crossing feature." },
-        { question: "Where is the prototype currently deployed?", answer: "It is currently deployed at Dr. Yanga's Colleges Inc." }
+        {
+            question: "How does the campus food ordering system work?",
+            answer:
+                "Students and staff can browse menus, place orders, and pay online through the web platform. Vendors receive real-time notifications for every order.",
+        },
+        {
+            question: "Can I order from multiple vendors at once?",
+            answer:
+                "Yes! You can add meals from different vendors to your cart and complete checkout in a single transaction.",
+        },
+        {
+            question: "Is payment done online or in person?",
+            answer:
+                "Both options are available. You can pay using your preferred e-wallet or upon pickup at the vendor’s stall.",
+        },
+        {
+            question: "How do food vendors manage their menus?",
+            answer:
+                "Vendors can log in to update menus, set item availability, and view order reports anytime through their dashboard.",
+        },
+        {
+            question: "Where is this system being implemented?",
+            answer:
+                "This system is currently developed for the on-campus food vendors of Dr. Yanga’s Colleges Inc., Bocaue, Bulacan.",
+        },
     ];
 
     const toggleAnswer = (index) => {
-        setOpenIndex(openIndex === index ? null : index); // Toggle the clicked FAQ
+        setOpenIndex(openIndex === index ? null : index);
     };
 
     return (
@@ -28,27 +48,33 @@ const FAQSection = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8 }}
-                className="max-w-7xl mx-auto overflow-hidden rounded-xl mt-0 shadow-md "
+                className="max-w-7xl mx-auto overflow-hidden rounded-xl mt-0 shadow-md"
                 ref={ref}
             >
                 <div className="grid grid-cols-1 md:grid-cols-2">
-                    <div className="bg-gradient-to-r from-teal-500 to-teal-400 text-white p-10 flex flex-col justify-between mt-10   ">
+                    <div className="bg-gradient-to-r from-teal-500 to-teal-400 text-white p-10 flex flex-col justify-between mt-10">
                         <div>
-                            <h1 className="text-4xl font-bold leading-tight">Enhancing<br />Traffic Efficiency</h1>
+                            <h1 className="text-4xl font-bold leading-tight">
+                                Empowering <br /> Campus Food Vendors
+                            </h1>
                         </div>
                         <div className="flex mt-8">
                             <div className="mr-12">
-                                <p className="text-3xl font-bold">20%</p>
-                                <p className="text-sm">Target Reduction in Congestion</p>
+                                <p className="text-3xl font-bold">95%</p>
+                                <p className="text-sm">Faster Food Ordering Process</p>
                             </div>
                             <div>
-                                <p className="text-3xl font-bold">30%</p>
-                                <p className="text-sm">Improved Pedestrian Flow</p>
+                                <p className="text-3xl font-bold">80%</p>
+                                <p className="text-sm">Improved Vendor Efficiency</p>
                             </div>
                         </div>
                     </div>
                     <div className="relative">
-                        <img src={safe} alt="Traffic AI System" className="w-full h-full object-cover mt-10" />
+                        <img
+                            src={safe}
+                            alt="Campus food system"
+                            className="w-full h-full object-cover mt-10"
+                        />
                     </div>
                 </div>
             </motion.section>
@@ -61,8 +87,12 @@ const FAQSection = () => {
                 viewport={{ once: true }}
                 className="py-12 max-w-7xl mx-auto px-4"
             >
-                <h2 className="text-md font-bold uppercase tracking-wide text-teal-600">FAQ</h2>
-                <h3 className="text-3xl font-bold mt-2 text-gray-200">Frequently Asked Questions</h3>
+                <h2 className="text-md font-bold uppercase tracking-wide text-teal-600">
+                    FAQ
+                </h2>
+                <h3 className="text-3xl font-bold mt-2 text-gray-200">
+                    Frequently Asked Questions
+                </h3>
                 <div className="mt-8 space-y-6">
                     {faqs.map((faq, index) => (
                         <div key={index} className="space-y-4">
@@ -72,15 +102,17 @@ const FAQSection = () => {
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                                 viewport={{ once: true }}
                                 className="flex justify-between items-center border-b border-gray-600 py-4 cursor-pointer"
-                                onClick={() => toggleAnswer(index)} // ✅ Now the whole row is clickable
+                                onClick={() => toggleAnswer(index)}
                             >
-                                <p className="text-lg font-medium text-gray-300">{faq.question}</p>
+                                <p className="text-lg font-medium text-gray-300">
+                                    {faq.question}
+                                </p>
                                 <motion.span
                                     whileHover={{ scale: 1.1 }}
                                     transition={{ duration: 0.2 }}
                                     className="text-2xl font-bold text-teal-500"
                                 >
-                                    {openIndex === index ? '-' : '+'}
+                                    {openIndex === index ? "-" : "+"}
                                 </motion.span>
                             </motion.div>
                             {openIndex === index && (
@@ -90,7 +122,6 @@ const FAQSection = () => {
                             )}
                         </div>
                     ))}
-
                 </div>
             </motion.section>
 
@@ -105,19 +136,32 @@ const FAQSection = () => {
                 <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center px-4">
                     <div className="md:w-1/2 text-center md:text-left mb-6 md:mb-0">
                         <h2 className="text-3xl font-bold leading-snug">
-                            Smarter Roads for <span className="text-yellow-300">Safer Highways</span>
+                            Smarter Dining for{" "}
+                            <span className="text-yellow-300">DYC Students</span>
                         </h2>
-                        <p className="mt-4 text-lg">See how AI and IoT are revolutionizing traffic flow.</p>
+                        <p className="mt-4 text-lg">
+                            Discover how technology transforms campus dining — fast, secure,
+                            and sustainable.
+                        </p>
                         <motion.button
                             whileHover={{ scale: 1.1 }}
                             transition={{ duration: 0.2 }}
                             className="mt-6 bg-gray-800 text-white py-2 px-6 rounded-full"
                         >
-                            <Link to="/contact" className="text-sm font-medium text-gray-300 hover:text-teal-400 transition transform hover:scale-105">Contact Us</Link>
+                            <Link
+                                to="/contact"
+                                className="text-sm font-medium text-gray-300 hover:text-teal-400 transition transform hover:scale-105"
+                            >
+                                Contact Us
+                            </Link>
                         </motion.button>
                     </div>
                     <div className="md:w-1/2 flex justify-center">
-                        <img src={handshake} alt="Smart traffic system" className="w-64 h-auto rounded-lg shadow-xl" />
+                        <img
+                            src={handshake}
+                            alt="Campus partnership"
+                            className="w-64 h-auto rounded-lg shadow-xl"
+                        />
                     </div>
                 </div>
             </motion.section>
@@ -136,8 +180,13 @@ const FAQSection = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-3xl font-bold"><span className="text-white">DYCI</span><span className="text-teal-500"> Traffic+</span></h2>
-                        <p className="text-sm mt-2">Dr. Yanga’s Colleges Inc., Brgy. Wakas, Bocaue, Bulacan</p>
+                        <h2 className="text-3xl font-bold">
+                            <span className="text-white">DYCI</span>
+                            <span className="text-teal-500"> Eats+</span>
+                        </h2>
+                        <p className="text-sm mt-2">
+                            Dr. Yanga’s Colleges Inc., Brgy. Wakas, Bocaue, Bulacan
+                        </p>
                         <div className="flex items-center mt-1">
                             <span className="mr-2">🇵🇭</span>
                             <span className="text-sm">Philippines</span>
@@ -152,10 +201,10 @@ const FAQSection = () => {
                         <div>
                             <h3 className="text-md font-bold">System</h3>
                             <ul className="mt-2 space-y-1 text-sm">
-                                <li>Vehicle Detection</li>
-                                <li>Signal Control</li>
-                                <li>Pedestrian Safety</li>
-                                <li>AI Learning</li>
+                                <li>Vendor Management</li>
+                                <li>Online Ordering</li>
+                                <li>Cashless Payments</li>
+                                <li>Menu Updates</li>
                             </ul>
                         </div>
                         <div>

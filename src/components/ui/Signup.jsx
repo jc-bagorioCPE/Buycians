@@ -41,7 +41,7 @@ const SignIn = () => {
       >
         {/* Back Button */}
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/")}
           className="text-sm text-teal-400 hover:underline mb-4"
         >
           ← Back
@@ -90,9 +90,8 @@ const SignIn = () => {
 
         {loginStatus && (
           <p
-            className={`mt-4 text-center ${
-              loginStatus.includes("✅") ? "text-teal-400" : "text-red-400"
-            }`}
+            className={`mt-4 text-center ${loginStatus.includes("✅") ? "text-teal-400" : "text-red-400"
+              }`}
           >
             {loginStatus}
           </p>
