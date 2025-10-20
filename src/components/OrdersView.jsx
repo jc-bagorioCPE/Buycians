@@ -6,9 +6,16 @@ import { Separator } from "@/components/ui/separator";
 const OrdersView = () => {
     const [orders, setOrders] = useState([]);
 
+    // Load from localStorage and listen for updates across tabs
     useEffect(() => {
-        const stored = JSON.parse(localStorage.getItem("orders")) || [];
-        setOrders(stored);
+        const loadOrders = () => {
+            const stored = JSON.parse(localStorage.getItem("orders")) || [];
+            setOrders(stored);
+        };
+
+        loadOrders();
+        window.addEventListener("storage", loadOrders);
+        return () => window.removeEventListener("storage", loadOrders);
     }, []);
 
     const grouped = orders.reduce((acc, order) => {
@@ -40,35 +47,37 @@ const OrdersView = () => {
                                         <th className="text-left py-3 px-4">Order Number</th>
                                         <th className="text-left py-3 px-4">Total Items</th>
                                         <th className="text-left py-3 px-4">Total Price</th>
+                                        <th className="text-left py-3 px-4">Date</th>
                                         <th className="text-left py-3 px-4">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {Object.keys(grouped).map((key) => {
-                                        const [num] = key.split("-");
                                         const group = grouped[key];
+                                        const order = group[0];
                                         const total = group.reduce((s, o) => s + o.total, 0);
-                                        const status = group[0].status || "Pending";
+                                        const date = new Date(order.createdAt).toLocaleString();
                                         return (
                                             <tr
                                                 key={key}
                                                 className="border-b border-gray-700 hover:bg-gray-800/80 transition"
                                             >
                                                 <td className="py-3 px-4 font-semibold text-teal-400">
-                                                    #{num}
+                                                    #{order.orderNumber}
                                                 </td>
-                                                <td className="py-3 px-4">{group[0].items.length}</td>
+                                                <td className="py-3 px-4">{order.items.length}</td>
                                                 <td className="py-3 px-4 text-gray-200">
                                                     ₱{total.toFixed(2)}
                                                 </td>
+                                                <td className="py-3 px-4 text-gray-400">{date}</td>
                                                 <td className="py-3 px-4">
                                                     <Badge
-                                                        className={`${status === "Delivered"
+                                                        className={`${order.status === "Delivered"
                                                                 ? "bg-teal-500"
                                                                 : "bg-yellow-500"
                                                             } text-white px-3 py-1 rounded-full`}
                                                     >
-                                                        {status}
+                                                        {order.status}
                                                     </Badge>
                                                 </td>
                                             </tr>

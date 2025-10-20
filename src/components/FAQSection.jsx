@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
-import handshake from "../assets/handshake3.png";
-import safe from "../assets/safe.png";
+import handshake from "../assets/hand.png";
+import safe from "../assets/about3.png";
 
 const FAQSection = () => {
     const { ref, inView } = useInView({ threshold: 0.2 });

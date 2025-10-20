@@ -162,8 +162,8 @@ const ContactUs = () => {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-3xl font-bold">
-              <span className="text-white">DYCI</span>
-              <span className="text-teal-500"> Eats+</span>
+              <span className="text-white">BUY</span>
+              <span className="text-teal-500">cians</span>
             </h2>
             <p className="text-sm mt-2">
               Dr. Yanga’s Colleges Inc., Brgy. Wakas, Bocaue, Bulacan

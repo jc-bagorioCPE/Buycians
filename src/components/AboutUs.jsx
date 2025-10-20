@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import campusFood from "../assets/pic1.png";
-import studentMeal from "../assets/pic1.png";
+import campusFood from "../assets/about1.png";
+import studentMeal from "../assets/about2.png";
 
 const AboutUs = () => {
   const ref = useRef(null);

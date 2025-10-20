@@ -23,7 +23,13 @@ const VerificationPage = ({ onVerifySuccess, setView }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!formData.storeName || !formData.contact || !formData.idNumber || !formData.reason || !formData.agreed) {
+        if (
+            !formData.storeName ||
+            !formData.contact ||
+            !formData.idNumber ||
+            !formData.reason ||
+            !formData.agreed
+        ) {
             alert("⚠️ Please complete all fields and sign the contract to continue.");
             return;
         }
@@ -33,10 +39,10 @@ const VerificationPage = ({ onVerifySuccess, setView }) => {
     };
 
     return (
-        <div className="flex justify-center py-10">
-            <Card className="w-full max-w-2xl bg-white shadow-lg rounded-2xl">
+        <div className="flex justify-center py-10 bg-[#f0f4f8] min-h-screen">
+            <Card className="w-full max-w-2xl bg-white shadow-xl rounded-2xl border border-gray-200">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-bold text-orange-600">
+                    <CardTitle className="text-2xl font-bold text-blue-600">
                         Seller Verification Form
                     </CardTitle>
                 </CardHeader>
@@ -70,8 +76,8 @@ const VerificationPage = ({ onVerifySuccess, setView }) => {
                             onChange={handleChange}
                         />
 
-                        <div className="border rounded-lg p-4 bg-gray-50 text-sm text-gray-700">
-                            <h3 className="font-semibold mb-2">📜 Seller Agreement</h3>
+                        <div className="border rounded-lg p-4 bg-blue-50 text-sm text-gray-700">
+                            <h3 className="font-semibold mb-2 text-blue-700">📜 Seller Agreement</h3>
                             <p>
                                 By signing this agreement, I acknowledge that I am responsible
                                 for all products listed under my name. I agree to follow the
@@ -91,7 +97,7 @@ const VerificationPage = ({ onVerifySuccess, setView }) => {
 
                         <Button
                             type="submit"
-                            className="w-full bg-orange-600 hover:bg-orange-500 text-white"
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium"
                         >
                             Submit Verification
                         </Button>
@@ -99,7 +105,7 @@ const VerificationPage = ({ onVerifySuccess, setView }) => {
                         <Button
                             type="button"
                             onClick={() => setView("profile")}
-                            className="w-full bg-gray-300 hover:bg-gray-200 text-gray-700"
+                            className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium"
                         >
                             Cancel
                         </Button>

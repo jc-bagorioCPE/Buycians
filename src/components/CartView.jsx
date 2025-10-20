@@ -5,8 +5,9 @@ const CartView = ({ cart, placeOrder }) => {
     const handlePlaceOrder = () => {
         if (cart.length === 0) return;
 
-        const buyerId = `Guest-${Math.floor(1000 + Math.random() * 9000)}`;
-        const orderNumber = `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
+        // Generate 4-digit buyer ID and order number
+        const buyerId = `Guest-${String(Math.floor(Math.random() * 10000)).padStart(4, "0")}`;
+        const orderNumber = `ORD-${String(Math.floor(Math.random() * 10000)).padStart(4, "0")}`;
 
         const total = cart.reduce((sum, item) => sum + item.price, 0);
 

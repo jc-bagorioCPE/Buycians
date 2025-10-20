@@ -24,7 +24,7 @@ const ProfilePage = () => {
 
     const handleOrderClick = (key) => setSelectedOrderKey(key);
 
-    // ✅ Update Status
+    // ✅ Update Status (Mark as Delivered)
     const handleMarkDelivered = (orderNumber, buyerId) => {
         const updatedOrders = orders.map((order) =>
             order.orderNumber === orderNumber && order.buyerId === buyerId
@@ -34,16 +34,17 @@ const ProfilePage = () => {
 
         setOrders(updatedOrders);
         localStorage.setItem("orders", JSON.stringify(updatedOrders));
-        alert(`✅ Order #${orderNumber} marked as Delivered`);
+        alert(`✅ Order ${orderNumber} marked as Delivered`);
     };
 
-    // ✅ SECOND TABLE - Details View
+    // ✅ Detailed View
     if (selectedOrderKey) {
         const [orderNumber, buyerId] = selectedOrderKey.split("-");
         const selectedOrders = groupedOrders[selectedOrderKey];
         const firstOrder = selectedOrders[0];
         const status = firstOrder.status || "Pending";
         const totalPrice = selectedOrders.reduce((sum, o) => sum + o.total, 0);
+        const orderDate = firstOrder.date ? new Date(firstOrder.date).toLocaleString() : "N/A";
 
         return (
             <div className="max-w-5xl mx-auto p-6">
@@ -52,10 +53,14 @@ const ProfilePage = () => {
                         <div className="flex justify-between items-center">
                             <div>
                                 <CardTitle className="text-2xl font-bold text-teal-400">
-                                    Order #{orderNumber}
+                                    Order Number: {orderNumber}
                                 </CardTitle>
                                 <p className="text-sm text-gray-400">
-                                    Guest ID: <span className="font-semibold text-gray-200">{buyerId}</span>
+                                    Buyer ID: <span className="font-semibold text-gray-200">{buyerId}</span>
+                                </p>
+                                <p className="text-sm text-gray-400">
+                                    Date Ordered:{" "}
+                                    <span className="font-semibold text-gray-200">{orderDate}</span>
                                 </p>
                             </div>
                             <button
@@ -73,10 +78,10 @@ const ProfilePage = () => {
                                 <thead>
                                     <tr className="bg-gray-800 text-teal-400 border-b border-gray-700">
                                         <th className="text-left py-2 px-4">Product Name</th>
-                                        <th className="text-left py-2 px-4">Guest Number</th>
-                                        <th className="text-left py-2 px-4">Cost</th>
+                                        <th className="text-left py-2 px-4">Quantity</th>
+                                        <th className="text-left py-2 px-4">Price</th>
                                         <th className="text-left py-2 px-4">Status</th>
-                                        <th className="text-left py-2 px-4">Actions</th>
+                                        <th className="text-left py-2 px-4">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -95,15 +100,15 @@ const ProfilePage = () => {
                                                 )}
                                                 <span className="font-medium text-gray-200">{item.name}</span>
                                             </td>
-                                            <td className="py-3 px-4 text-gray-400">{buyerId}</td>
+                                            <td className="py-3 px-4 text-gray-300">{item.quantity}</td>
                                             <td className="py-3 px-4 font-semibold text-gray-200">
                                                 ₱{item.price.toFixed(2)}
                                             </td>
                                             <td className="py-3 px-4">
                                                 <Badge
                                                     className={`${status === "Delivered"
-                                                            ? "bg-teal-500"
-                                                            : "bg-yellow-500"
+                                                        ? "bg-teal-500"
+                                                        : "bg-yellow-500"
                                                         } text-white px-3 py-1 rounded-full`}
                                                 >
                                                     {status}
@@ -114,11 +119,13 @@ const ProfilePage = () => {
                                                     onClick={() => handleMarkDelivered(orderNumber, buyerId)}
                                                     disabled={status === "Delivered"}
                                                     className={`${status === "Delivered"
-                                                            ? "bg-gray-500 cursor-not-allowed"
-                                                            : "bg-teal-500 hover:bg-teal-600"
+                                                        ? "bg-gray-500 cursor-not-allowed"
+                                                        : "bg-teal-500 hover:bg-teal-600"
                                                         } text-white font-semibold transition`}
                                                 >
-                                                    {status === "Delivered" ? "Delivered" : "Mark as Delivered"}
+                                                    {status === "Delivered"
+                                                        ? "Delivered"
+                                                        : "Mark as Delivered"}
                                                 </Button>
                                             </td>
                                         </tr>
@@ -138,7 +145,7 @@ const ProfilePage = () => {
         );
     }
 
-    // ✅ FIRST TABLE - Summary View
+    // ✅ Summary View
     return (
         <div className="max-w-5xl mx-auto p-6">
             <Card className="shadow-lg bg-gradient-to-b from-gray-900 via-gray-800 to-black border border-gray-700 text-gray-100">
@@ -152,7 +159,7 @@ const ProfilePage = () => {
                     {Object.keys(groupedOrders).length === 0 ? (
                         <div className="text-center text-gray-400 py-10">
                             <h2 className="text-lg font-semibold">No orders yet 😔</h2>
-                            <p>Orders will appear here once customers place them.</p>
+                            <p>Orders will appear here once placed.</p>
                         </div>
                     ) : (
                         <div className="overflow-x-auto rounded-lg border border-gray-700">
@@ -160,6 +167,7 @@ const ProfilePage = () => {
                                 <thead>
                                     <tr className="bg-gray-800 text-teal-400 border-b border-gray-700">
                                         <th className="text-left py-2 px-4">Order Number</th>
+                                        <th className="text-left py-2 px-4">Date Ordered</th>
                                         <th className="text-left py-2 px-4">Total Items</th>
                                         <th className="text-left py-2 px-4">Total Price</th>
                                         <th className="text-left py-2 px-4">Status</th>
@@ -172,6 +180,9 @@ const ProfilePage = () => {
                                         const total = ordersGroup.reduce((sum, o) => sum + o.total, 0);
                                         const status = ordersGroup[0].status || "Pending";
                                         const totalItems = ordersGroup[0].items.length;
+                                        const orderDate = ordersGroup[0].date
+                                            ? new Date(ordersGroup[0].date).toLocaleString()
+                                            : "N/A";
 
                                         return (
                                             <tr
@@ -180,8 +191,9 @@ const ProfilePage = () => {
                                                 className="border-b border-gray-700 cursor-pointer hover:bg-gray-800/70 transition"
                                             >
                                                 <td className="py-3 px-4 font-semibold text-teal-400">
-                                                    #{orderNumber || "N/A"}
+                                                    {orderNumber}
                                                 </td>
+                                                <td className="py-3 px-4 text-gray-400">{orderDate}</td>
                                                 <td className="py-3 px-4 text-gray-300">{totalItems}</td>
                                                 <td className="py-3 px-4 font-semibold text-gray-200">
                                                     ₱{total.toFixed(2)}
@@ -189,8 +201,8 @@ const ProfilePage = () => {
                                                 <td className="py-3 px-4">
                                                     <Badge
                                                         className={`${status === "Delivered"
-                                                                ? "bg-teal-500"
-                                                                : "bg-yellow-500"
+                                                            ? "bg-teal-500"
+                                                            : "bg-yellow-500"
                                                             } text-white px-3 py-1 rounded-full`}
                                                     >
                                                         {status}

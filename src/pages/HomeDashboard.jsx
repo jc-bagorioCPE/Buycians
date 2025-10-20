@@ -134,8 +134,8 @@ const HomeDashboard = () => {
             return;
         }
 
-        const orderNumber = `ORD-${Date.now()}`;
-        const buyerId = `GUEST-${Math.floor(Math.random() * 9000) + 1000}`;
+        const orderNumber = `ORD-${String(Math.floor(Math.random() * 10000)).padStart(4, "0")}`;
+        const buyerId = `GUEST-${String(Math.floor(Math.random() * 10000)).padStart(4, "0")}`;
 
         const items = cart.map((c) => ({
             id: c.id,
@@ -162,7 +162,7 @@ const HomeDashboard = () => {
         window.dispatchEvent(new Event("storage"));
         setCart([]);
         setView("orders");
-        alert(`✅ Order placed — ${orderNumber}`);
+        alert(`✅ Order placed — ${orderNumber} ${buyerId} `);
     };
 
     const markOrderDelivered = (orderNumber) => {

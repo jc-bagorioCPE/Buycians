@@ -26,7 +26,8 @@ const Navbar = () => {
           onClick={handleLogoClick}
           className="text-3xl md:text-4xl font-extrabold cursor-pointer hover:scale-105 transition-transform duration-200"
         >
-          <span className="text-teal-400">BUYcians</span>
+          <span className="text-white">BUY</span>
+          <span className="text-teal-500">cians</span>
         </div>
 
         {/* Navigation Links */}
